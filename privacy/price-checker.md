@@ -1,11 +1,11 @@
 ---
-title: Price Checker プライバシーポリシー
+title: 価格チェッカー プライバシーポリシー
 permalink: /privacy/price-checker
 ---
 
-# Price Checker プライバシーポリシー
+# 価格チェッカー プライバシーポリシー
 
-unitomastudio（以下「当方」）は、Androidアプリケーション「Price Checker」（以下「本アプリ」）におけるユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。
+unitomastudio（以下「当方」）は、Androidアプリケーション「価格チェッカー」（以下「本アプリ」）におけるユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。
 
 ## 1. 収集する情報
 
