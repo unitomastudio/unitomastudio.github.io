@@ -4,7 +4,7 @@ title: unitomastudio
 
 # unitomastudio
 
-Androidアプリの個人開発プロジェクトの公開・サポートサイトです。
+Androidアプリの個人開発プロジェクトの公開・サポートサイトです。現在 **10アプリ**を Google Play で公開しています。
 
 ## 公開アプリ
 
@@ -44,6 +44,15 @@ Androidアプリの個人開発プロジェクトの公開・サポートサイ�
 - Google Play: [推し電卓](https://play.google.com/store/apps/details?id=com.unitomastudio.calculator)
 - プライバシーポリシー: [/privacy/calculator](/privacy/calculator)
 
+### 推しタイマー
+
+推しの画像を背景にできる、かわいいタイマー＆ストップウォッチアプリ。複数タイマー・ラップ計測・テーマ色・アラーム音のカスタマイズに対応。
+
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/ja_badge_web_generic.png" alt="Google Play で手に入れよう" height="60">](https://play.google.com/store/apps/details?id=com.unitomastudio.oshitimer)
+
+- Google Play: [推しタイマー](https://play.google.com/store/apps/details?id=com.unitomastudio.oshitimer)
+- プライバシーポリシー: [/privacy/oshi-timer](/privacy/oshi-timer)
+
 ### 推し鏡
 
 好きな画像をフレームにして、インカメラを鏡として楽しめるアプリ。多数のフレーム・遅延ミラー・共有機能付き。
@@ -71,21 +80,29 @@ Androidアプリの個人開発プロジェクトの公開・サポートサイ�
 - Google Play: [マイフラワーコレクション](https://play.google.com/store/apps/details?id=com.unitomastudio.flowercollection)
 - プライバシーポリシー: [/privacy/flower-collection](/privacy/flower-collection)
 
-## 近日公開（審査中）
-
 ### マイフィッシングコレクション
 
 釣った魚を写真で記録・コレクション。場所・天気・釣果メモも残せて、魚図鑑・料理レシピ検索や、写真を敷き詰めた壁紙作りもできるアプリ。
 
-- Google Play: [マイフィッシングコレクション](https://play.google.com/store/apps/details?id=com.unitomastudio.fishingcollection)（公開準備中）
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/ja_badge_web_generic.png" alt="Google Play で手に入れよう" height="60">](https://play.google.com/store/apps/details?id=com.unitomastudio.fishingcollection)
+
+- Google Play: [マイフィッシングコレクション](https://play.google.com/store/apps/details?id=com.unitomastudio.fishingcollection)
 - プライバシーポリシー: [/privacy/fishing-collection](/privacy/fishing-collection)
 
 ### マイ昆虫コレクション
 
 見つけた昆虫を写真で記録・コレクション。場所・天気・入手メモや、生態・昆虫図鑑検索、写真を敷き詰めた壁紙作りもできるアプリ。
 
-- Google Play: [マイ昆虫コレクション](https://play.google.com/store/apps/details?id=com.unitomastudio.insectcollection)（公開準備中）
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/ja_badge_web_generic.png" alt="Google Play で手に入れよう" height="60">](https://play.google.com/store/apps/details?id=com.unitomastudio.insectcollection)
+
+- Google Play: [マイ昆虫コレクション](https://play.google.com/store/apps/details?id=com.unitomastudio.insectcollection)
 - プライバシーポリシー: [/privacy/insect-collection](/privacy/insect-collection)
+
+## SNS
+
+最新情報・アップデートは X（旧Twitter）でも発信しています。
+
+- X: [@unitomastudio](https://x.com/unitomastudio)
 
 ## お問い合わせ
 
