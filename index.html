@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYSTEM DESIGN｜個人で作る Androidアプリ</title>
+<meta name="description" content="SYSTEM DESIGN（システムデザイン）は個人開発の Androidアプリブランド。日本株を色で見る「株ヒートマップ」ほか、Google Play で10アプリを公開中。運営: unitomastudio">
+<meta property="og:title" content="SYSTEM DESIGN｜個人で作る Androidアプリ">
+<meta property="og:description" content="日本株を色で見る「株ヒートマップ」ほか、Google Play で10アプリを公開中。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://unitomastudio.github.io/assets/featured-stock.png">
+<link rel="icon" type="image/png" href="/assets/sd-logo.png">
+<style>
+  :root{
+    --bg:#0a0f1c; --bg2:#0f1626; --card:#141d30; --card2:#1a2438;
+    --line:#26324a; --text:#eaf0fb; --muted:#9aa8c2; --accent:#22c55e;
+    --accent-d:#16a34a; --navy:#0d2b4e; --blue:#2563eb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:clip;max-width:100%}
+  img{max-width:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(37,99,235,.35), transparent 60%),
+      radial-gradient(900px 500px at 0% 0%, rgba(34,197,94,.20), transparent 55%),
+      linear-gradient(180deg,#0d1424,#0a0f1c);
+    border-bottom:1px solid var(--line);
+    padding:64px 0 56px;
+  }
+  .hero-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+  .logo{
+    width:92px;height:92px;border-radius:22px;box-shadow:0 10px 40px rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .brand{font-size:2.5rem;font-weight:800;letter-spacing:.06em}
+  .brand .jp{display:block;font-size:1rem;font-weight:600;color:var(--muted);letter-spacing:.2em;margin-top:6px}
+  .tagline{font-size:1.15rem;color:#d5e0f5;max-width:620px}
+  .runby{font-size:.82rem;color:var(--muted)}
+  .runby code{background:rgba(255,255,255,.06);padding:2px 8px;border-radius:6px;color:#cdd8ee}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;
+    padding:12px 22px;border-radius:999px;transition:transform .15s ease, background .15s;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--accent);color:#04240f}
+  .btn-primary:hover{background:#28d466}
+  .btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .stat{margin-top:22px;display:flex;gap:26px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.88rem}
+  .stat b{color:var(--accent);font-size:1.15rem;font-weight:800}
+
+  /* ===== Section ===== */
+  section{padding:56px 0}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:26px}
+  .sec-head h2{font-size:1.5rem;font-weight:800}
+  .sec-head .en{color:var(--muted);font-size:.8rem;letter-spacing:.15em;text-transform:uppercase}
+
+  /* ===== Featured ===== */
+  .featured{
+    background:linear-gradient(180deg,#0e1728,#0b1220);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .feat-card{
+    display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:24px;padding:34px;
+  }
+  .feat-shot{width:100%;border-radius:16px;box-shadow:0 14px 50px rgba(0,0,0,.5);display:block}
+  .badge-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,.14);
+    color:var(--accent);font-weight:700;font-size:.78rem;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .feat-title{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .feat-title img{width:56px;height:56px;border-radius:14px}
+  .feat-title h3{font-size:1.55rem;font-weight:800}
+  .feat-desc{color:#cdd8ee;margin-bottom:16px}
+  .feat-points{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+  .feat-points li{display:flex;gap:10px;color:#d5e0f5;font-size:.95rem}
+  .feat-points li::before{content:"";flex:0 0 8px;width:8px;height:8px;border-radius:3px;background:var(--accent);margin-top:9px}
+  .playbadge{height:56px}
+  .feat-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .x-link{color:var(--muted);font-size:.9rem;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .x-link:hover{color:var(--text)}
+
+  /* ===== App grid ===== */
+  .cat{margin-bottom:44px}
+  .cat:last-child{margin-bottom:0}
+  .cat-title{font-size:1.05rem;font-weight:800;color:#dfe8fa;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .cat-title .dot{font-size:1.2rem}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .app{
+    display:flex;gap:15px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+    border-radius:18px;padding:18px;transition:transform .15s ease,border-color .15s,background .15s;
+  }
+  .app:hover{transform:translateY(-3px);border-color:#3a4a6b;background:var(--card2)}
+  .app img{width:60px;height:60px;border-radius:15px;flex:0 0 60px}
+  .app-body{min-width:0}
+  .app-name{font-weight:800;font-size:1.05rem;margin-bottom:3px}
+  .app-desc{color:var(--muted);font-size:.85rem;line-height:1.55}
+  .app-get{margin-top:9px;display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-weight:700;font-size:.82rem}
+
+  /* ===== Footer ===== */
+  footer{background:#080d18;border-top:1px solid var(--line);padding:48px 0 40px;color:var(--muted)}
+  .foot-grid{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
+  .foot-brand{display:flex;align-items:center;gap:12px}
+  .foot-brand img{width:46px;height:46px;border-radius:12px}
+  .foot-brand b{color:var(--text);font-size:1.1rem;letter-spacing:.05em}
+  .foot-col h4{color:var(--text);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .foot-col a{display:block;font-size:.9rem;margin-bottom:7px}
+  .foot-col a:hover{color:var(--text)}
+  .privacy-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+  .privacy-links a{font-size:.78rem;color:#6f7d98}
+  .privacy-links a:hover{color:var(--muted)}
+  .copy{margin-top:26px;font-size:.8rem;color:#5c6a85}
+
+  @media (max-width:760px){
+    .hero{padding:48px 0 40px}
+    .brand{font-size:1.85rem;letter-spacing:.02em}
+    .tagline{font-size:1.05rem}
+    .runby{overflow-wrap:anywhere}
+    .hero-cta{width:100%}
+    .hero-cta .btn{flex:1 1 auto;justify-content:center;min-width:0}
+    .feat-card{grid-template-columns:1fr;gap:26px;padding:22px}
+    .feat-shot{max-width:260px;margin:0 auto}
+    .grid{grid-template-columns:1fr}
+    section{padding:44px 0}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <img class="logo" src="/assets/sd-logo.png" alt="SYSTEM DESIGN ロゴ">
+    <h1 class="brand">SYSTEM DESIGN<span class="jp">システムデザイン</span></h1>
+    <p class="tagline">個人で作る、ちょっと便利な Androidアプリ。<br>日本株を色で見る「株ヒートマップ」ほか、Google Play で <b>10アプリ</b> 公開中。</p>
+    <p class="runby">個人開発ブランド ／ 運営: <code>unitomastudio</code>（GitHub・X・お問い合わせ 共通）</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#featured">▶ 株ヒートマップを見る</a>
+      <a class="btn btn-ghost" href="https://x.com/unitomastudio" target="_blank" rel="noopener">𝕏 @unitomastudio</a>
+    </div>
+    <div class="stat">
+      <span><b>10</b> アプリ公開中</span>
+      <span><b>日本株</b> 毎日ヒートマップ発信</span>
+      <span><b>すべて無料</b> でお試し</span>
+    </div>
+  </div>
+</header>
+
+<!-- FEATURED -->
+<section class="featured" id="featured">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">Featured</span><h2>注目のアプリ</h2></div>
+    <div class="feat-card">
+      <img class="feat-shot" src="/assets/featured-stock.png" alt="株ヒートマップの画面">
+      <div>
+        <span class="badge-pill">★ いま一番おすすめ</span>
+        <div class="feat-title">
+          <img src="/assets/icons/stock-heatmap.png" alt="株ヒートマップ アイコン">
+          <h3>株ヒートマップ</h3>
+        </div>
+        <p class="feat-desc">保有株や日経225を「色と大きさ」で可視化。数字の羅列より、相場の全体感がひと目でわかる日本株アプリです。</p>
+        <ul class="feat-points">
+          <li>評価額・含み損益・配当・前日比を色で直感把握</li>
+          <li>日経225を銘柄別／セクター別のヒートマップで表示（保有株の登録なしでも使えます）</li>
+          <li>データは端末内に保存。バックエンド不要・無料</li>
+        </ul>
+        <div class="feat-actions">
+          <a href="https://play.google.com/store/apps/details?id=com.unitomastudio.stockheatmap" target="_blank" rel="noopener">
+            <img class="playbadge" src="https://play.google.com/intl/en_us/badges/static/images/badges/ja_badge_web_generic.png" alt="Google Play で手に入れよう">
+          </a>
+          <a class="x-link" href="https://x.com/unitomastudio" target="_blank" rel="noopener">𝕏 毎日の相場を色で発信中 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP LIST -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="en">All Apps</span><h2>公開中のアプリ</h2></div>
+
+    <!-- 投資・お金 -->
+    <div class="cat">
+      <div class="cat-title"><span class="dot">📊</span>投資・お金</div>
+      <div class="grid">
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.stockheatmap" target="_blank" rel="noopener">
+          <img src="/assets/icons/stock-heatmap.png" alt="株ヒートマップ">
+          <div class="app-body">
+            <div class="app-name">株ヒートマップ</div>
+            <div class="app-desc">日本株の保有株・日経225を色と大きさで可視化。損益や配当をひと目で。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.pricechecker" target="_blank" rel="noopener">
+          <img src="/assets/icons/price-checker.png" alt="価格チェッカー">
+          <div class="app-body">
+            <div class="app-name">価格チェッカー</div>
+            <div class="app-desc">バーコードをスキャンして楽天市場の最安値と店頭価格を比較。せどり・買い物に。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 記録・コレクション -->
+    <div class="cat">
+      <div class="cat-title"><span class="dot">📸</span>記録・コレクション</div>
+      <div class="grid">
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.carsnap" target="_blank" rel="noopener">
+          <img src="/assets/icons/car-snap.png" alt="車キズログ">
+          <div class="app-body">
+            <div class="app-name">車キズログ</div>
+            <div class="app-desc">車のキズ・状態を写真と注釈で記録。レンタカー・カーシェア・社用車管理に。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.flowercollection" target="_blank" rel="noopener">
+          <img src="/assets/icons/flower-collection.png" alt="マイフラワーコレクション">
+          <div class="app-body">
+            <div class="app-name">マイフラワーコレクション</div>
+            <div class="app-desc">出会った花を写真で記録・コレクション。場所や天気も残せて壁紙も作れる。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.fishingcollection" target="_blank" rel="noopener">
+          <img src="/assets/icons/fishing-collection.png" alt="マイフィッシングコレクション">
+          <div class="app-body">
+            <div class="app-name">マイフィッシングコレクション</div>
+            <div class="app-desc">釣った魚を写真で記録・コレクション。魚図鑑・料理レシピ検索や壁紙作りも。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.insectcollection" target="_blank" rel="noopener">
+          <img src="/assets/icons/insect-collection.png" alt="マイ昆虫コレクション">
+          <div class="app-body">
+            <div class="app-name">マイ昆虫コレクション</div>
+            <div class="app-desc">見つけた昆虫を写真で記録・コレクション。生態・昆虫図鑑検索や壁紙作りも。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 推し活 -->
+    <div class="cat">
+      <div class="cat-title"><span class="dot">💖</span>推し活</div>
+      <div class="grid">
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.calculator" target="_blank" rel="noopener">
+          <img src="/assets/icons/calculator.png" alt="推し電卓">
+          <div class="app-body">
+            <div class="app-name">推し電卓</div>
+            <div class="app-desc">背景・数字・ボタンに好きな画像を設定できる、自分だけにカスタムできる電卓。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.oshitimer" target="_blank" rel="noopener">
+          <img src="/assets/icons/oshi-timer.png" alt="推しタイマー">
+          <div class="app-body">
+            <div class="app-name">推しタイマー</div>
+            <div class="app-desc">推しの画像を背景にできる、かわいいタイマー＆ストップウォッチ。複数タイマー対応。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.oshimirror" target="_blank" rel="noopener">
+          <img src="/assets/icons/oshi-mirror.png" alt="推し鏡">
+          <div class="app-body">
+            <div class="app-name">推し鏡</div>
+            <div class="app-desc">好きな画像をフレームにして、インカメラを鏡として楽しめる。遅延ミラー・共有付き。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ツール -->
+    <div class="cat">
+      <div class="cat-title"><span class="dot">🔧</span>ツール</div>
+      <div class="grid">
+        <a class="app" href="https://play.google.com/store/apps/details?id=com.unitomastudio.barcodeinfo" target="_blank" rel="noopener">
+          <img src="/assets/icons/barcode-info.png" alt="バーコードラボ">
+          <div class="app-body">
+            <div class="app-name">バーコードラボ</div>
+            <div class="app-desc">バーコードのフォーマット種別・チェックデジット・国コードを表示する開発者向けツール。</div>
+            <span class="app-get">▶ Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <img src="/assets/sd-logo.png" alt="SYSTEM DESIGN">
+          <b>SYSTEM DESIGN</b>
+        </div>
+        <p style="margin-top:12px;font-size:.85rem;max-width:320px">個人で Androidアプリを開発しています。ご感想・ご要望はお気軽に。</p>
+      </div>
+      <div class="foot-col">
+        <h4>SNS</h4>
+        <a href="https://x.com/unitomastudio" target="_blank" rel="noopener">𝕏 @unitomastudio</a>
+      </div>
+      <div class="foot-col">
+        <h4>お問い合わせ</h4>
+        <a href="mailto:unitomastudio@gmail.com">unitomastudio@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="privacy-links">
+      <span style="font-size:.78rem;color:#8a97b2">プライバシーポリシー:</span>
+      <a href="/privacy/stock-heatmap">株ヒートマップ</a>
+      <a href="/privacy/price-checker">価格チェッカー</a>
+      <a href="/privacy/barcode-info">バーコードラボ</a>
+      <a href="/privacy/car-snap">車キズログ</a>
+      <a href="/privacy/calculator">推し電卓</a>
+      <a href="/privacy/oshi-timer">推しタイマー</a>
+      <a href="/privacy/oshi-mirror">推し鏡</a>
+      <a href="/privacy/flower-collection">マイフラワー</a>
+      <a href="/privacy/fishing-collection">マイフィッシング</a>
+      <a href="/privacy/insect-collection">マイ昆虫</a>
+    </div>
+
+    <p class="copy">© 2026 SYSTEM DESIGN (unitomastudio)</p>
+  </div>
+</footer>
+
+</body>
+</html>
